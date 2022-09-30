@@ -2,6 +2,8 @@
 import asyncio
 import json
 import secrets
+import os
+import signal
 
 import websockets
 
@@ -19,7 +21,6 @@ WATCH = {}
 async def error(websocket, message):
     """
     Send an error message.
-
     """
     event = {
         "type": "error",
@@ -31,7 +32,6 @@ async def error(websocket, message):
 async def replay(websocket, game):
     """
     Send previous moves.
-
     """
     # Make a copy to avoid an exception if game.moves changes while iteration
     # is in progress. If a move is played while replay is running, moves will
@@ -50,7 +50,6 @@ async def replay(websocket, game):
 async def play(websocket, game, player, connected):
     """
     Receive and process moves from a player.
-
     """
     async for message in websocket:
         # Parse a "play" event from the UI.
@@ -183,8 +182,6 @@ async def handler(websocket):
         await start(websocket)
 
 
-import os
-import signal
 
 async def main():
 
