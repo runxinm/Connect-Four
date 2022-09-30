@@ -74,7 +74,7 @@ function receiveMoves(board, websocket) {
 
 function getWebSocketServer() {
   if (window.location.host === "runxinm.github.io") {
-    return "ws://rxc4.herokuapp.com/";
+    return "wss://rxc4.herokuapp.com/";
   } else if (window.location.host === "localhost:9000") {
     return "ws://localhost:9001/";
   } else {
