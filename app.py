@@ -183,9 +183,18 @@ async def handler(websocket):
         await start(websocket)
 
 
+import os
+import signal
+
 async def main():
-    async with websockets.serve(handler, "", 9001):
-        await asyncio.Future()  # run forever
+
+    loop = asyncio.get_running_loop()
+    stop = loop.create_future()
+    loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
+
+    port = int(os.environ.get("PORT", "9001"))
+    async with websockets.serve(handler, "", port):
+        await stop
 
 
 if __name__ == "__main__":
