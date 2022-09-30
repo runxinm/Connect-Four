@@ -52,7 +52,7 @@ function receiveMoves(board, websocket) {
       case "init":
         document.querySelector(".join").href = "?join=" + event.join;
         document.querySelector(".watch").href = "?watch=" + event.watch;
-        document.querySelector(".joinid").interText = "join= " + event.join;
+        document.querySelector(".joinid").innerHTML = "join= " + event.join;
         break;
         
       case "play":
