@@ -72,13 +72,23 @@ function receiveMoves(board, websocket) {
   });
 }
 
+function getWebSocketServer() {
+  if (window.location.host === "runxinm.github.io") {
+    return "ws://rxc4.herokuapp.com/";
+  } else if (window.location.host === "localhost:9000") {
+    return "ws://localhost:9001/";
+  } else {
+    throw new Error(`Unsupported host: ${window.location.host}`);
+  }
+}
 
 window.addEventListener("DOMContentLoaded", () => {
   // Initialize the UI.
   const board = document.querySelector(".board");
   createBoard(board);
   // Open the WebSocket connection and register event handlers.
-  const websocket = new WebSocket("ws://localhost:9001/");
+  // const websocket = new WebSocket("ws://localhost:9001/");
+  const websocket = new WebSocket(getWebSocketServer());
   initGame(websocket);
   receiveMoves(board, websocket);
   sendMoves(board, websocket);
